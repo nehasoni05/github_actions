@@ -30,6 +30,7 @@ jobs:
           gh api -X POST \
           http://api.github.com/repos/${OWNER}/${REPO}/issues/${issue_number}/comments \
           -f body='COMMENT ADDED....'
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.event.repository.owner.login }}
