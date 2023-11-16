@@ -2,7 +2,6 @@ name: Add comment to newly created issue using community action or Github API
 on:
   issues:
     types: [opened]
-  workflow_dispatch:
 jobs:
   Add_Comment_To_Issue_Using_Community_Action:
     runs-on: ubuntu-latest
