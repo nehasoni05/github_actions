@@ -1,0 +1,72 @@
+name: Workflow using different events
+on:
+# Runs your workflow when changes are pushed to main, feature branches
+  push:
+    branches:
+      - main
+      - feature
+    paths:
+      - '**.js'
+# Runs your workflow when PR is created for main branch. this workflow will run when someone opens a pull request that targets a branch whose name starts with main or snapshot
+# giving parameters like types, branches, paths, branches_ignore are optional
+  pull_request:
+    types:
+      - opened
+      - review_requested
+      - edited
+    branches:
+      - main
+      - snapshot
+#  Runs your workflow when an issue or pull request comment is created, edited, or deleted
+  issue_comment:
+    types:
+      - created
+      - deleted
+      - edited
+# Run your workflows when issue is created/modified/deleted/assigned/unassigned etc
+  issues:
+    types: [created, deleted, modified, assigned, unassigned]
+# Schedule workflow
+  schedule:
+    - cron: '30 5,17 * * *'
+    - cron: '20 12 * * 1,3'
+    - cron: '30 4-6 * * *'  # runs at 30 minutes of 4th,5th and 6th hour
+    - cron: '20/5 * * * *'  # runs every 15 minutes starting from minute 20 through 59 (minutes 20, 35, and 50).
+# Runs workflows manually
+  workflow_dispatch:
+    inputs:
+      BRANCH:
+        required: false
+        description: "Enter the branch name"
+        default: main
+        type: string
+      ENV:
+        required: true
+        description: "Enter target env"
+        default: dev
+        type: choice
+        options:
+          - int
+          - int-prod
+          - feature
+      reports:
+        required: false
+        description: "Do you want to generate reports"
+        type: boolean
+        default: true
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: Print hello world
+        run: echo "Hello world"
+        shell: bash
+  goodbye:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print goodbye
+        run: echo "GOODBYE"
+        shell: bash
+
