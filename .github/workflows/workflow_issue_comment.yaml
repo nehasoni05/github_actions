@@ -28,7 +28,7 @@ jobs:
       - name: Add comment using github api
         run: |
           gh api -X POST \
-          http://api.github.com/repos/${OWNER}/${REPO}/issues/${issue_number}/comments \
+          https://api.github.com/repos/${OWNER}/${REPO}/issues/${issue_number}/comments \
           -f body='COMMENT ADDED....'
         shell: bash
         env:
